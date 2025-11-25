@@ -1,0 +1,155 @@
+:root {
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #1f2933;
+  background: #eef2f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--body-bg, #eef2f7);
+}
+
+.container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.panel {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.panel-form h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.panel-form .subtitle {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+.input-group label {
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+#file-input {
+  padding: 0.4rem;
+}
+
+#file-hint {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 220px;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-family: "Fira Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.95rem;
+  background: #f9fafb;
+  color: #111827;
+}
+
+button {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #2563eb, #22d3ee);
+  color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(59, 130, 246, 0.25);
+}
+
+.helper {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.panel-result h2 {
+  margin-top: 0;
+}
+
+#result-card {
+  border: 1px dashed #dbeafe;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  background: #f8fafc;
+}
+
+#result-label {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+#result-label.positive {
+  color: #16a34a;
+}
+
+#result-label.negative {
+  color: #dc2626;
+}
+
+#result-label.neutral {
+  color: #1f2933;
+}
+
+#result-prob {
+  font-size: 1rem;
+  margin: 0.6rem 0 0;
+  color: #374151;
+}
+
+.filename {
+  margin-top: 0.3rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+#messages {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+@media (max-width: 720px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .panel {
+    padding: 1.5rem;
+  }
+}
+

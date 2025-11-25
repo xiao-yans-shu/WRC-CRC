@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>代码可读性在线分类器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="panel panel-form">
+        <h1>代码可读性分类</h1>
+        <p class="subtitle">
+          使用 fine-tuning 后的结构模型权重（T_BEST.hdf5）对代码片段进行可读/不可读预测。
+        </p>
+
+        <div class="input-group">
+          <label for="file-input">上传代码文件</label>
+          <input
+            type="file"
+            id="file-input"
+            accept=".java,.py,.txt,.js,.ts,.cpp,.c,.cs,.go,.rb,.kt,.php,.rs,.swift,.scala,.sql,.sh,.bat,.ps1,.m,.hpp,.h,.json,.xml,.yml,.yaml"
+          />
+          <span id="file-hint">尚未选择文件</span>
+        </div>
+
+        <div class="input-group">
+          <label for="code-input">或在此直接粘贴代码</label>
+          <textarea
+            id="code-input"
+            rows="14"
+            placeholder="将代码片段粘贴到这里..."
+          ></textarea>
+        </div>
+
+        <button id="submit-btn">开始分类</button>
+        <p class="helper">
+          默认请求 <code>http://127.0.0.1:8000</code>，如需修改可在
+          <code>app.js</code> 中调整 <code>API_BASE_URL</code>。
+        </p>
+      </section>
+
+      <section class="panel panel-result">
+        <h2>预测结果</h2>
+        <div id="result-card">
+          <p id="result-label" class="neutral">等待提交</p>
+          <p id="result-prob"></p>
+          <p id="result-filename" class="filename"></p>
+        </div>
+        <div id="messages"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
