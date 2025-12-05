@@ -12,14 +12,6 @@ const elements = {
 };
 
 let currentFilename = "";
-let forcedLabel = null;
-
-const detectForcedLabel = (name) => {
-  if (!name) return null;
-  if (name.includes("不可读")) return "Unreadable";
-  if (name.includes("可读代码")) return "Readable";
-  return null;
-};
 
 const updateMessage = (text, type = "info") => {
   elements.messages.textContent = text;
@@ -79,29 +71,14 @@ const handleSubmit = async () => {
   try {
     updateMessage("正在调用模型...", "info");
     const result = await callInferenceApi(code);
-    let displayLabel = result.label;
-    let displayProb = result.probability;
-    if (forcedLabel === "Readable") {
-      displayLabel = "Readable";
-      displayProb = 0.99;
-      updateMessage("推理完成。", "success");
-    } else if (forcedLabel === "Unreadable") {
-      displayLabel = "Unreadable";
-      displayProb = 0.01;
-      updateMessage("推理完成。", "success");
-    } else {
-      updateMessage("推理成功。", "success");
-    }
-    renderResult(displayLabel, displayProb, currentFilename);
+    renderResult(result.label, result.probability, currentFilename);
+    updateMessage("推理成功。", "success");
   } catch (error) {
     console.error(error);
-    if (forcedLabel) {
-      const fallbackProb = forcedLabel === "Readable" ? 0.99 : 0.01;
-      renderResult(forcedLabel, fallbackProb, currentFilename || "");
-    } else {
-      renderResult("Readable", 0.5, currentFilename || "");
-    }
-    updateMessage("推理完成。", "success");
+    updateMessage(error.message || "推理失败，请检查日志。", "error");
+    elements.resultLabel.classList.add("neutral");
+    elements.resultLabel.textContent = "发生错误";
+    elements.resultProb.textContent = "";
   } finally {
     setLoading(false);
   }
@@ -112,12 +89,10 @@ const handleFileSelection = async (event) => {
   if (!file) {
     elements.fileHint.textContent = "尚未选择文件";
     currentFilename = "";
-    forcedLabel = null;
     return;
   }
 
   currentFilename = file.name;
-  forcedLabel = detectForcedLabel(currentFilename);
   elements.fileHint.textContent = `已加载：${file.name} (${(
     file.size /
     1024
